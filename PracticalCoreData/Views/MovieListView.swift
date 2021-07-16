@@ -68,7 +68,7 @@ struct MovieListView: View {
             // List to show the movies added
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
-                ForEach(movies, id: \.self) { movie in
+                ForEach(movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)) {
                         Text("\(movie.name ?? "")")
                     }
