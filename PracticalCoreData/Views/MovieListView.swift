@@ -10,16 +10,11 @@ import SwiftUI
 
 struct MovieListView: View {
     
-    // Access StorageProvider instance
+    // Access StorageProvider instance for updating list of movies
     @EnvironmentObject private var storageProvider: StorageProvider
     
-    // The request to retrieve movies
-    var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
-
-    // The result (convenience computed property)
-    var movies: FetchedResults<Movie> {
-        return moviesFetchRequest.wrappedValue
-    }
+    // Access MovieListViewModel instance for viewing list of movies
+    @ObservedObject var viewModel: MovieListViewModel
         
     // Whether to show add movie interface
     @State private var showAddMovie = false
@@ -71,7 +66,7 @@ struct MovieListView: View {
             // List to show the movies added
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
-                ForEach(movies) { movie in
+                ForEach(viewModel.movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)
                                     .environmentObject(storageProvider)) {
                         Text(movie.name)
@@ -133,8 +128,8 @@ struct MovieListView: View {
     }
 }
 
-struct MovieListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieListView()
-    }
-}
+//struct MovieListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MovieListView(viewModel: <#T##MovieListViewModel#>)
+//    }
+//}

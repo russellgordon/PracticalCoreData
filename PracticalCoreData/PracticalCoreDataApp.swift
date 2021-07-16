@@ -15,7 +15,7 @@ struct PracticalCoreDataApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MovieListView()
+                MovieListView(viewModel: MovieListViewModel(storageProvider: storageProvider))
                     // Insert storage provider into the environment
                     .environmentObject(storageProvider)
                     // For FetchRequests to operate, a managed object context is required
