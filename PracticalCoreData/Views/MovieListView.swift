@@ -13,20 +13,15 @@ struct MovieListView: View {
     // Access StorageProvider instance
     @EnvironmentObject private var storageProvider: StorageProvider
     
-    // The request to retrieve movies
-    var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
-
-    // The result (convenience computed property)
-    var movies: FetchedResults<Movie> {
-        return moviesFetchRequest.wrappedValue
-    }
-        
     // Whether to show add movie interface
     @State private var showAddMovie = false
     
     // Field to enter movie name into
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
+    
+    // The list of movies to show
+    @State private var movies: [Movie] = []
     
     var body: some View {
         
@@ -86,6 +81,9 @@ struct MovieListView: View {
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
+                                
+                                // Update the list of movies
+                                movies = storageProvider.getAllMovies()
                             }
 
                         }) {
@@ -115,6 +113,11 @@ struct MovieListView: View {
             }
             
         }
+        .onAppear {
+            // Load the list of movies
+            movies = storageProvider.getAllMovies()
+        }
+
     }
     
     func saveMovie() {
@@ -123,6 +126,9 @@ struct MovieListView: View {
         
         // Save the movie
         storageProvider.saveMovie(named: movieName)
+        
+        // Update the list of movies
+        movies = storageProvider.getAllMovies()
         
         // Clear input field
         movieName = ""

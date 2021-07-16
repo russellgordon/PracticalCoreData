@@ -47,16 +47,17 @@ struct MovieEditView: View {
                 }
             }
         }
+
     }
     
     func updateMovie() {
         print("About to update movie...")
                             
-                            // Save the changes in the persistent store
-                            storageProvider.updateMovies()
-                            
-                            // Dismiss this view
-                            dismissView.toggle()
+        // Save the changes in the persistent store
+        storageProvider.updateMovies()
+        
+        // Dismiss this view
+        dismissView.toggle()
     }
     
 }
