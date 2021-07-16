@@ -10,10 +10,16 @@ import SwiftUI
 @main
 struct PracticalCoreDataApp: App {
     
+    @StateObject private var storageProvider = StorageProvider()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MovieListView(storageProvider: StorageProvider())
+                MovieListView()
+                    // Insert storage provider into the environment
+                    .environmentObject(storageProvider)
+                    // For FetchRequests to operate, a managed object context is required
+                    .environment(\.managedObjectContext, storageProvider.persistentContainer.viewContext)
             }
         }
     }

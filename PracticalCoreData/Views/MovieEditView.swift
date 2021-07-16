@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieEditView: View {
     
     // Access StorageProvider instance
-    let storageProvider: StorageProvider
+    @EnvironmentObject private var storageProvider: StorageProvider
 
     // Whether this view should be showing or not
     @Binding var dismissView: Bool
