@@ -11,22 +11,17 @@ import SwiftUI
 struct MovieListView: View {
     
     // Access StorageProvider instance
-    @EnvironmentObject private var storageProvider: StorageProvider
-    
-    // The request to retrieve users
-    var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
-
-    // The result (convenience computed property)
-    var movies: FetchedResults<Movie> {
-        return moviesFetchRequest.wrappedValue
-    }
-        
+    let storageProvider: StorageProvider
+            
     // Whether to show add movie interface
     @State private var showAddMovie = false
     
     // Field to enter movie name into
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
+    
+    // The list of movies to be shown
+    @State private var movies: [Movie] = []
     
     var body: some View {
         
@@ -72,8 +67,7 @@ struct MovieListView: View {
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
                 ForEach(movies) { movie in
-                    NavigationLink(destination: MovieDetailView(movie: movie)
-                                    .environmentObject(storageProvider)) {
+                    NavigationLink(destination: MovieDetailView(storageProvider: storageProvider, movie: movie)) {
                         Text("\(movie.name ?? "")")
                     }
                     .swipeActions(allowsFullSwipe: true) {
@@ -86,6 +80,9 @@ struct MovieListView: View {
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
+                                
+                                // Refresh the list of movies
+                                movies = storageProvider.getAllMovies()
                             }
 
                         }) {
@@ -115,6 +112,11 @@ struct MovieListView: View {
             }
             
         }
+        .onAppear {
+            // Get the list of movies that currently exist
+            movies = storageProvider.getAllMovies()
+        }
+        
     }
     
     func saveMovie() {
@@ -129,11 +131,14 @@ struct MovieListView: View {
         
         // Set focus back to the input field
         isFocused = true
+        
+        // Refresh the list of movies
+        movies = storageProvider.getAllMovies()
     }
 }
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView()
+        MovieListView(storageProvider: StorageProvider())
     }
 }

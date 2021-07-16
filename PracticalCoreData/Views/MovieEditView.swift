@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieEditView: View {
     
     // Access StorageProvider instance
-    @EnvironmentObject private var storageProvider: StorageProvider
+    let storageProvider: StorageProvider
 
     // Whether this view should be showing or not
     @Binding var dismissView: Bool
@@ -20,9 +20,9 @@ struct MovieEditView: View {
         
     var body: some View {
         
-        // Required because the wrapper generated for the Movie has a name property of type String? and we can't have bindings with optionals
+        // Required because the managed object subclass generated for Movie has a name property of type String? and we can't have bindings with optionals
         let movieBinding = Binding(
-            // We can force unwrap because the name is non-optional in the underlying model
+            // We can force unwrap because the name is non-optional in the underlying model file
             get: { self.movie.name! },
             set: { newValue in
                 self.movie.name = newValue
@@ -61,11 +61,11 @@ struct MovieEditView: View {
     func updateMovie() {
         print("About to update movie...")
                             
-                            // Save the changes in the persistent store
-                            storageProvider.updateMovies()
-                            
-                            // Dismiss this view
-                            dismissView.toggle()
+        // Save the changes in the persistent store
+        storageProvider.updateMovies()
+        
+        // Dismiss this view
+        dismissView.toggle()
     }
     
 }
