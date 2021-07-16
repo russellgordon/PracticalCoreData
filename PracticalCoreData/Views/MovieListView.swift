@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MovieListView.swift
 //  PracticalCoreData
 //
 //  Created by Russell Gordon on 2021-07-16.
@@ -8,7 +8,7 @@
 import Introspect
 import SwiftUI
 
-struct ContentView: View {
+struct MovieListView: View {
     
     // Access StorageProvider instance by dependency injection
     // (the view depends on the instance of StorageProvider passed by its creator)
@@ -112,8 +112,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(storageProvider: StorageProvider())
+        MovieListView(storageProvider: StorageProvider())
     }
 }

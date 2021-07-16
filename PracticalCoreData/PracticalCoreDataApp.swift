@@ -12,7 +12,7 @@ struct PracticalCoreDataApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView(storageProvider: StorageProvider())
+                MovieListView(storageProvider: StorageProvider())
             }
         }
     }
