@@ -87,3 +87,27 @@ extension StorageProvider {
     }
     
 }
+
+// Delete a movie
+extension StorageProvider {
+    
+    func deleteMovie( _ movie: Movie) {
+        
+        persistentContainer.viewContext.delete(movie)
+        
+        do {
+            
+            try persistentContainer.viewContext.save()
+            
+            print("Movie deleted.")
+            
+        } catch {
+            
+            persistentContainer.viewContext.rollback()
+            print("Failed to save context: \(error)")
+            
+        }
+        
+    }
+    
+}

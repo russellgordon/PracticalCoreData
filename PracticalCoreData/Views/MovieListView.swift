@@ -66,9 +66,34 @@ struct MovieListView: View {
             }
             
             // List to show the movies added
-            List(movies) { movie in
-                NavigationLink(destination: MovieDetailView(movie: movie)) {
-                    Text("\(movie.name ?? "")")
+            List {
+                // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
+                ForEach(movies, id: \.self) { movie in
+                    NavigationLink(destination: MovieDetailView(movie: movie)) {
+                        Text("\(movie.name ?? "")")
+                    }
+                    .swipeActions(allowsFullSwipe: true) {
+                        
+                        // Delete this set of dice
+                        Button(role: .destructive, action: {
+                            
+                            print("About to delete movie...")
+
+                            withAnimation {
+                                // Attempt to delete the movie
+                                storageProvider.deleteMovie(movie)
+
+                                // Refresh the list of movies
+                                movies = storageProvider.getAllMovies()
+                            }
+                            
+
+                        }) {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                                                        
+                    }
+
                 }
             }
             // This modifier seems to be necessary to force SwiftUI to add a gap between the header and the list
