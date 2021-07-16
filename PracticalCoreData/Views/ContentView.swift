@@ -18,7 +18,8 @@ struct ContentView: View {
     @State private var showAddMovie = false
     
     // Field to enter movie name into
-    @State private var newMovieName = ""
+    @State private var movieName = ""
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         
@@ -32,8 +33,8 @@ struct ContentView: View {
                 VStack {
                     HStack {
                         
-                        TextField("Enter movie name", text: $newMovieName)
-                            .padding(.leading, 5)
+                        TextField("Enter movie name", text: $movieName)
+                            .focused($isFocused)
                             // This modifier is invoked when the user presses Return
                             .onSubmit {
                                 saveMovie()
@@ -47,7 +48,6 @@ struct ContentView: View {
                         .keyboardShortcut(.defaultAction)
 
                     }
-                    .padding(.leading, 5)
                     
                 }
                 .padding(.horizontal)
@@ -71,6 +71,10 @@ struct ContentView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button(showAddMovie ? "Done" : "New") {
                     showAddMovie.toggle()
+
+                    // NOTE: This doesn't seem to work to set the focus to the TextField 🤨
+                    //       Really wish it would...
+                    isFocused = true
                 }
             }
             
@@ -80,6 +84,12 @@ struct ContentView: View {
     func saveMovie() {
         // Saving movie
         print("About to save movie...")
+        
+        // Clear input field
+        movieName = ""
+        
+        // Set focus back to the input field
+        isFocused = true
     }
 }
 
