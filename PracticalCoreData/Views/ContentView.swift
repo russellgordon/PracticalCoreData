@@ -22,6 +22,9 @@ struct ContentView: View {
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
     
+    // The list of movies to be shown
+    @State private var movies: [Movie] = []
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -63,10 +66,8 @@ struct ContentView: View {
             }
             
             // List to show the movies added
-            List {
-                Text("Movie 1")
-                Text("Movie 2")
-                Text("Movie 3")
+            List(movies) { movie in
+                Text("\(movie.name ?? "")")
             }
             // This modifier seems to be necessary to force SwiftUI to add a gap between the header and the list
             // The background won't actually be red, but a clear background doesn't work
@@ -87,6 +88,10 @@ struct ContentView: View {
             }
             
         }
+        .onAppear {
+            // Get the list of movies that currently exist
+            movies = storageProvider.getAllMovies()
+        }
     }
     
     func saveMovie() {
@@ -101,6 +106,9 @@ struct ContentView: View {
         
         // Set focus back to the input field
         isFocused = true
+        
+        // Refresh the list of movies
+        movies = storageProvider.getAllMovies()
     }
 }
 
