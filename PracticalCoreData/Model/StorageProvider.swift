@@ -8,7 +8,7 @@
 import CoreData
 import Foundation
 
-class StorageProvider {
+class StorageProvider: ObservableObject {
     
     // For initializing the Core Data stack and loading the Core Data model file
     let persistentContainer: NSPersistentContainer
@@ -106,6 +106,23 @@ extension StorageProvider {
             persistentContainer.viewContext.rollback()
             print("Failed to save context: \(error)")
             
+        }
+        
+    }
+    
+}
+
+// Update a movie
+extension StorageProvider {
+    
+    func updateMovies() {
+        
+        do {
+            try persistentContainer.viewContext.save()
+            print("Movie updated.")
+        } catch {
+            persistentContainer.viewContext.rollback()
+            print("Failed to save context: \(error)")
         }
         
     }

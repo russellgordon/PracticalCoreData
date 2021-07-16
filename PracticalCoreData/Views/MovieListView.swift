@@ -10,20 +10,23 @@ import SwiftUI
 
 struct MovieListView: View {
     
-    // Access StorageProvider instance by dependency injection
-    // (the view depends on the instance of StorageProvider passed by its creator)
-    // NOTE: Wondering whether inserting into the environment and accessing via @EnvironmentObject might be an alternative in the future
-    let storageProvider: StorageProvider
+    // Access StorageProvider instance
+    @EnvironmentObject private var storageProvider: StorageProvider
     
+    // The request to retrieve users
+    var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
+
+    // The result (convenience computed property)
+    var movies: FetchedResults<Movie> {
+        return moviesFetchRequest.wrappedValue
+    }
+        
     // Whether to show add movie interface
     @State private var showAddMovie = false
     
     // Field to enter movie name into
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
-    
-    // The list of movies to be shown
-    @State private var movies: [Movie] = []
     
     var body: some View {
         
@@ -69,7 +72,8 @@ struct MovieListView: View {
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
                 ForEach(movies) { movie in
-                    NavigationLink(destination: MovieDetailView(movie: movie)) {
+                    NavigationLink(destination: MovieDetailView(movie: movie)
+                                    .environmentObject(storageProvider)) {
                         Text("\(movie.name ?? "")")
                     }
                     .swipeActions(allowsFullSwipe: true) {
@@ -82,11 +86,7 @@ struct MovieListView: View {
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
-
-                                // Refresh the list of movies
-                                movies = storageProvider.getAllMovies()
                             }
-                            
 
                         }) {
                             Label("Delete", systemImage: "trash.fill")
@@ -115,10 +115,6 @@ struct MovieListView: View {
             }
             
         }
-        .onAppear {
-            // Get the list of movies that currently exist
-            movies = storageProvider.getAllMovies()
-        }
     }
     
     func saveMovie() {
@@ -133,14 +129,11 @@ struct MovieListView: View {
         
         // Set focus back to the input field
         isFocused = true
-        
-        // Refresh the list of movies
-        movies = storageProvider.getAllMovies()
     }
 }
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(storageProvider: StorageProvider())
+        MovieListView()
     }
 }
