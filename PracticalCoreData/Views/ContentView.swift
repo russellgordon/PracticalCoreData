@@ -34,14 +34,18 @@ struct ContentView: View {
                         
                         TextField("Enter movie name", text: $newMovieName)
                             .padding(.leading, 5)
+                            // This modifier is invoked when the user presses Return
+                            .onSubmit {
+                                saveMovie()
+                            }
                         
                         Button(action: {
-                            // Invoke code to add movie here
-                            
+                            saveMovie()
                         }) {
                             Text("Add")
                         }
-                        
+                        .keyboardShortcut(.defaultAction)
+
                     }
                     .padding(.leading, 5)
                     
@@ -71,6 +75,11 @@ struct ContentView: View {
             }
             
         }
+    }
+    
+    func saveMovie() {
+        // Saving movie
+        print("About to save movie...")
     }
 }
 
