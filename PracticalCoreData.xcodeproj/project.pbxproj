@@ -14,6 +14,7 @@
 		81C6526726A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 81C6526526A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld */; };
 		81C6526926A1C3AF00F0EA35 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6526826A1C3AF00F0EA35 /* StorageProvider.swift */; };
 		81C6527126A1DB5D00F0EA35 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 81C6527026A1DB5D00F0EA35 /* Introspect */; };
+		81C6527326A1E99F00F0EA35 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6527226A1E99F00F0EA35 /* MovieDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		81C6525E26A1C20C00F0EA35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		81C6526626A1C2B400F0EA35 /* PracticalCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PracticalCoreData.xcdatamodel; sourceTree = "<group>"; };
 		81C6526826A1C3AF00F0EA35 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
+		81C6527226A1E99F00F0EA35 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				81C6525926A1C20B00F0EA35 /* MovieListView.swift */,
+				81C6527226A1E99F00F0EA35 /* MovieDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C6527326A1E99F00F0EA35 /* MovieDetailView.swift in Sources */,
 				81C6526926A1C3AF00F0EA35 /* StorageProvider.swift in Sources */,
 				81C6525A26A1C20B00F0EA35 /* MovieListView.swift in Sources */,
 				81C6525826A1C20B00F0EA35 /* PracticalCoreDataApp.swift in Sources */,

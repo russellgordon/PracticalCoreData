@@ -67,7 +67,9 @@ struct MovieListView: View {
             
             // List to show the movies added
             List(movies) { movie in
-                Text("\(movie.name ?? "")")
+                NavigationLink(destination: MovieDetailView(movie: movie)) {
+                    Text("\(movie.name ?? "")")
+                }
             }
             // This modifier seems to be necessary to force SwiftUI to add a gap between the header and the list
             // The background won't actually be red, but a clear background doesn't work
