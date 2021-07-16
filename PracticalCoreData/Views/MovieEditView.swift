@@ -21,8 +21,8 @@ struct MovieEditView: View {
     var body: some View {
         
         // Required because the managed object subclass generated for Movie has a name property of type String? and we can't have bindings with optionals
-        let movieBinding = Binding(
-            // We can force unwrap because the name is non-optional in the underlying model file
+        let movieNameBinding = Binding(
+            // We can safely force unwrap because the name is non-optional in the underlying model file
             get: { self.movie.name! },
             set: { newValue in
                 self.movie.name = newValue
@@ -30,7 +30,7 @@ struct MovieEditView: View {
         )
         
         return Form {
-            TextField("Enter movie name", text: movieBinding)
+            TextField("Enter movie name", text: movieNameBinding)
                 .introspectTextField { textField in
                     
                     // Set focus to text field
