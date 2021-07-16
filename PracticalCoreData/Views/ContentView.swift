@@ -5,6 +5,7 @@
 //  Created by Russell Gordon on 2021-07-16.
 //
 
+import Introspect
 import SwiftUI
 
 struct ContentView: View {
@@ -34,11 +35,18 @@ struct ContentView: View {
                     HStack {
                         
                         TextField("Enter movie name", text: $movieName)
+                            .introspectTextField { textField in
+                                
+                                // Set focus to the text field
+                                textField.becomeFirstResponder()
+                                                                
+                            }
                             .focused($isFocused)
                             // This modifier is invoked when the user presses Return
                             .onSubmit {
                                 saveMovie()
                             }
+
                         
                         Button(action: {
                             saveMovie()
