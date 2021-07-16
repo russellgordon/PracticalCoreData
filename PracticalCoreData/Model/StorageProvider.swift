@@ -30,3 +30,35 @@ class StorageProvider {
     }
     
 }
+
+// Save a movie
+extension StorageProvider {
+    
+    func saveMovie(named name: String) {
+        
+        // New Movie instance is tied to the managed object context
+        let movie = Movie(context: persistentContainer.viewContext)
+        
+        // Set the name for the new movie
+        movie.name = name
+        
+        do {
+            
+            // Persist the data in this managed object context to the underlying store
+            try persistentContainer.viewContext.save()
+            
+            print("Movie saved successfully")
+            
+        } catch {
+            
+            // Something went wrong 😭
+            print("Failed to save movie: \(error)")
+            
+            // Rollback any changes in the managed object context
+            persistentContainer.viewContext.rollback()
+            
+        }
+        
+    }
+
+}

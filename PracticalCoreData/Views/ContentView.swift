@@ -93,6 +93,9 @@ struct ContentView: View {
         // Saving movie
         print("About to save movie...")
         
+        // Save the movie
+        storageProvider.saveMovie(named: movieName)
+        
         // Clear input field
         movieName = ""
         
