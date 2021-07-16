@@ -20,7 +20,7 @@ extension Movie {
         
         // Set sort descriptors
         request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Movie.name, ascending: true)
+            NSSortDescriptor(keyPath: \Movie.rawName, ascending: true)
         ]
         
         // Set predicates for filtering

@@ -19,7 +19,7 @@ struct MovieDetailView: View {
     @State private var showEditSheet = false
     
     var body: some View {
-        Text("\(movie.name ?? "")")
+        Text(movie.name)
             .navigationTitle("Detail")
             .sheet(isPresented: $showEditSheet) {
                 NavigationView {

@@ -13,7 +13,7 @@ struct MovieListView: View {
     // Access StorageProvider instance
     @EnvironmentObject private var storageProvider: StorageProvider
     
-    // The request to retrieve users
+    // The request to retrieve movies
     var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
 
     // The result (convenience computed property)
@@ -74,7 +74,7 @@ struct MovieListView: View {
                 ForEach(movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)
                                     .environmentObject(storageProvider)) {
-                        Text("\(movie.name ?? "")")
+                        Text(movie.name)
                     }
                     .swipeActions(allowsFullSwipe: true) {
                         

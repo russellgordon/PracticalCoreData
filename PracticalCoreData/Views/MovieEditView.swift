@@ -20,17 +20,8 @@ struct MovieEditView: View {
         
     var body: some View {
         
-        // Required because the wrapper generated for the Movie has a name property of type String? and we can't have bindings with optionals
-        let movieBinding = Binding(
-            // We can force unwrap because the name is non-optional in the underlying model
-            get: { self.movie.name! },
-            set: { newValue in
-                self.movie.name = newValue
-            }
-        )
-        
-        return Form {
-            TextField("Enter movie name", text: movieBinding)
+        Form {
+            TextField("Enter movie name", text: $movie.name)
                 .introspectTextField { textField in
                     
                     // Set focus to text field
