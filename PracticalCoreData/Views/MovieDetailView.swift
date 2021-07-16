@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailView: View {
     
     // Access StorageProvider instance
-    @EnvironmentObject private var storageProvider: StorageProvider
+    let storageProvider: StorageProvider
     
     // The movie whose details we are viewing
     @ObservedObject var movie: Movie
@@ -23,8 +23,9 @@ struct MovieDetailView: View {
             .navigationTitle("Detail")
             .sheet(isPresented: $showEditSheet) {
                 NavigationView {
-                    MovieEditView(dismissView: $showEditSheet, movie: movie)
-                        .environmentObject(storageProvider)
+                    MovieEditView(storageProvider: storageProvider,
+                                  dismissView: $showEditSheet,
+                                  movie: movie)
                 }
             }
             .toolbar {

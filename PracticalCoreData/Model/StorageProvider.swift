@@ -8,7 +8,7 @@
 import CoreData
 import Foundation
 
-class StorageProvider: ObservableObject {
+class StorageProvider {
     
     // For initializing the Core Data stack and loading the Core Data model file
     let persistentContainer: NSPersistentContainer

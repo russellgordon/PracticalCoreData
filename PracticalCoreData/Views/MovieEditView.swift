@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieEditView: View {
     
     // Access StorageProvider instance
-    @EnvironmentObject private var storageProvider: StorageProvider
+    let storageProvider: StorageProvider
 
     // Whether this view should be showing or not
     @Binding var dismissView: Bool
@@ -52,11 +52,11 @@ struct MovieEditView: View {
     func updateMovie() {
         print("About to update movie...")
                             
-                            // Save the changes in the persistent store
-                            storageProvider.updateMovies()
-                            
-                            // Dismiss this view
-                            dismissView.toggle()
+        // Save the changes in the persistent store
+        storageProvider.updateMovies()
+        
+        // Dismiss this view
+        dismissView.toggle()
     }
     
 }

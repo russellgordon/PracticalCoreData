@@ -28,6 +28,9 @@ struct MovieListView: View {
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
     
+    // The list of movies to be shown
+    @State private var movies: [Movie] = []
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -86,6 +89,9 @@ struct MovieListView: View {
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
+                                
+                                // Refresh the list of movies
+                                movies = storageProvider.getAllMovies()
                             }
 
                         }) {
@@ -115,6 +121,11 @@ struct MovieListView: View {
             }
             
         }
+        .onAppear {
+            // Get the list of movies that currently exist
+            movies = storageProvider.getAllMovies()
+        }
+        
     }
     
     func saveMovie() {
@@ -129,11 +140,14 @@ struct MovieListView: View {
         
         // Set focus back to the input field
         isFocused = true
+        
+        // Refresh the list of movies
+        movies = storageProvider.getAllMovies()
     }
 }
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView()
+        MovieListView(storageProvider: StorageProvider())
     }
 }
