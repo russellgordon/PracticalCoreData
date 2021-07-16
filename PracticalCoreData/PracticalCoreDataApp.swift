@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct PracticalCoreDataApp: App {
     
+    // Create an instance of our storage provider
     @StateObject private var storageProvider = StorageProvider()
     
     var body: some Scene {

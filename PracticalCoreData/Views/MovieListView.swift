@@ -20,9 +20,6 @@ struct MovieListView: View {
     @State private var movieName = ""
     @FocusState private var isFocused: Bool
     
-    // The list of movies to show
-    @State private var movies: [Movie] = []
-    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -66,7 +63,7 @@ struct MovieListView: View {
             // List to show the movies added
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
-                ForEach(movies) { movie in
+                ForEach(storageProvider.movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)
                                     .environmentObject(storageProvider)) {
                         Text(movie.name)
@@ -81,9 +78,6 @@ struct MovieListView: View {
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
-                                
-                                // Update the list of movies
-                                movies = storageProvider.getAllMovies()
                             }
 
                         }) {
@@ -113,10 +107,6 @@ struct MovieListView: View {
             }
             
         }
-        .onAppear {
-            // Load the list of movies
-            movies = storageProvider.getAllMovies()
-        }
 
     }
     
@@ -126,9 +116,6 @@ struct MovieListView: View {
         
         // Save the movie
         storageProvider.saveMovie(named: movieName)
-        
-        // Update the list of movies
-        movies = storageProvider.getAllMovies()
         
         // Clear input field
         movieName = ""
