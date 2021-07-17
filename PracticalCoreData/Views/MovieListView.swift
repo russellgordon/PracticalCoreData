@@ -24,6 +24,7 @@ struct MovieListView: View {
         
         VStack(alignment: .leading) {
             
+            // Empty view seems to be necessary to get SwiftUI to draw the surrounding VStack
             Text("")
 
             // Interface for adding a movie

@@ -111,6 +111,8 @@ extension StorageProvider {
         do {
             // Tell SwiftUI that the list of movies is being modified
             objectWillChange.send()
+            
+            // Actually persist/save the changes to the managed object context
             try persistentContainer.viewContext.save()
             print("Movie updated.")
             
@@ -126,6 +128,7 @@ extension StorageProvider {
 // Get all the movies
 extension StorageProvider {
     
+    // Made private because views will access the movies retrieved from Core Data via the movies array in StorageProvider
     private func getAllMovies() -> [Movie] {
         
         // Must specify the type with annotation, otherwise Xcode won't know what overload of fetchRequest() to use (we want to use the one for the Movie entity)
@@ -134,6 +137,7 @@ extension StorageProvider {
         
         do {
             
+            // Return an array of Movie objects, retrieved from the Core Data store
             return try persistentContainer.viewContext.fetch(fetchRequest)
             
         } catch {
