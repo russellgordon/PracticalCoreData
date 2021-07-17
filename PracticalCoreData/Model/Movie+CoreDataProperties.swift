@@ -17,7 +17,7 @@ extension Movie {
 
     @NSManaged public var rawName: String?
     
-    // Handle the optionality of the rawName attribute
+    // Wrap the optionality of the rawName attribute to simplify use in SwiftUI views
     public var name: String {
         get {
             rawName ?? ""

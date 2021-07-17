@@ -107,7 +107,6 @@ struct MovieListView: View {
             }
             
         }
-
     }
     
     func saveMovie() {
