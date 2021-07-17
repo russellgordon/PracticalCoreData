@@ -5,6 +5,7 @@
 //  Created by Russell Gordon on 2021-07-16.
 //
 
+import Introspect
 import SwiftUI
 
 struct MovieListView: View {
@@ -17,6 +18,7 @@ struct MovieListView: View {
     
     // Field to enter movie name into
     @State private var movieName = ""
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         
@@ -32,6 +34,18 @@ struct MovieListView: View {
                     HStack {
                         
                         TextField("Enter movie name", text: $movieName)
+                            .introspectTextField { textField in
+                                
+                                // Set focus to the text field
+                                textField.becomeFirstResponder()
+                                                                
+                            }
+                            .focused($isFocused)
+                            // This modifier is invoked when the user presses Return
+                            .onSubmit {
+                                saveMovie()
+                            }
+
                         
                         Button(action: {
                             saveMovie()
@@ -55,11 +69,24 @@ struct MovieListView: View {
                                     .environmentObject(storageProvider)) {
                         Text(movie.name)
                     }
+                    .swipeActions(allowsFullSwipe: true) {
+                        
+                        // Delete this set of dice
+                        Button(role: .destructive, action: {
+                            
+                            print("About to delete movie...")
 
-                }
-                .onDelete { indexSet in
-                    print("About to delete a movie...")
-                    storageProvider.deleteMovies(at: indexSet)
+                            withAnimation {
+                                // Attempt to delete the movie
+                                storageProvider.deleteMovie(movie)
+                            }
+
+                        }) {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                                                        
+                    }
+
                 }
             }
             // This modifier seems to be necessary to force SwiftUI to add a gap between the header and the list
@@ -73,6 +100,10 @@ struct MovieListView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button(showAddMovie ? "Done" : "New") {
                     showAddMovie.toggle()
+
+                    // NOTE: This doesn't seem to work to set the focus to the TextField 🤨
+                    //       Really wish it would...
+                    isFocused = true
                 }
             }
             
@@ -88,6 +119,9 @@ struct MovieListView: View {
         
         // Clear input field
         movieName = ""
+        
+        // Set focus back to the input field
+        isFocused = true
     }
 }
 

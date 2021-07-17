@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		81C6525F26A1C20C00F0EA35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C6525E26A1C20C00F0EA35 /* Preview Assets.xcassets */; };
 		81C6526726A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 81C6526526A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld */; };
 		81C6526926A1C3AF00F0EA35 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6526826A1C3AF00F0EA35 /* StorageProvider.swift */; };
+		81C6527126A1DB5D00F0EA35 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 81C6527026A1DB5D00F0EA35 /* Introspect */; };
 		81C6527326A1E99F00F0EA35 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6527226A1E99F00F0EA35 /* MovieDetailView.swift */; };
 		81C6527526A1EFEC00F0EA35 /* MovieEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6527426A1EFEC00F0EA35 /* MovieEditView.swift */; };
 		81C6528226A22D9D00F0EA35 /* Movie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6528026A22D9D00F0EA35 /* Movie+CoreDataClass.swift */; };
@@ -33,7 +34,6 @@
 		81C6528026A22D9D00F0EA35 /* Movie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataClass.swift"; sourceTree = "<group>"; };
 		81C6528126A22D9D00F0EA35 /* Movie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+PreviewProvider.swift"; sourceTree = "<group>"; };
-		81FDC98426A31F12000D95F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81C6527126A1DB5D00F0EA35 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +71,6 @@
 				81C6526A26A1C3B400F0EA35 /* Model */,
 				81C6526B26A1C3B800F0EA35 /* Views */,
 				81C6525B26A1C20C00F0EA35 /* Assets.xcassets */,
-				81FDC98426A31F12000D95F0 /* Info.plist */,
 				81C6525D26A1C20C00F0EA35 /* Preview Content */,
 			);
 			path = PracticalCoreData;
@@ -123,6 +123,7 @@
 			);
 			name = PracticalCoreData;
 			packageProductDependencies = (
+				81C6527026A1DB5D00F0EA35 /* Introspect */,
 			);
 			productName = PracticalCoreData;
 			productReference = 81C6525426A1C20B00F0EA35 /* PracticalCoreData.app */;
@@ -134,7 +135,7 @@
 		81C6524C26A1C20B00F0EA35 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = NO;
+				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
@@ -144,7 +145,7 @@
 				};
 			};
 			buildConfigurationList = 81C6524F26A1C20B00F0EA35 /* Build configuration list for PBXProject "PracticalCoreData" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -153,6 +154,7 @@
 			);
 			mainGroup = 81C6524B26A1C20B00F0EA35;
 			packageReferences = (
+				81C6526F26A1DB5D00F0EA35 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 81C6525526A1C20B00F0EA35 /* Products */;
 			projectDirPath = "";
@@ -246,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -301,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -322,13 +324,12 @@
 				DEVELOPMENT_TEAM = U2ZN2W2UQJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/PracticalCoreData/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -353,13 +354,12 @@
 				DEVELOPMENT_TEAM = U2ZN2W2UQJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/PracticalCoreData/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -395,6 +395,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		81C6526F26A1DB5D00F0EA35 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/timbersoftware/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		81C6527026A1DB5D00F0EA35 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81C6526F26A1DB5D00F0EA35 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		81C6526526A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld */ = {

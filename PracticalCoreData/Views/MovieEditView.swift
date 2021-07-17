@@ -22,6 +22,21 @@ struct MovieEditView: View {
         
         Form {
             TextField("Enter movie name", text: $movie.name)
+                .introspectTextField { textField in
+                    
+                    // Set focus to text field
+                    textField.becomeFirstResponder()
+                    
+                    // When the text field gets the focus, select the text; this saves the user having to select the text before typing a new word
+                    // NOTE: If statement exists to work around issue where first character of input given to an empty text field gets auto-selected again; with this conditional the text is selected only when the textfield has more than a single character
+                    if textField.text?.count ?? 0 > 1 {
+                        textField.selectAll(nil)
+                    }
+
+                }
+                .onSubmit {
+                    updateMovie()
+                }
         }
         .navigationTitle("Edit movie")
         .toolbar {
