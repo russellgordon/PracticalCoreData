@@ -89,9 +89,9 @@
 			children = (
 				81C6528026A22D9D00F0EA35 /* Movie+CoreDataClass.swift */,
 				81C6528126A22D9D00F0EA35 /* Movie+CoreDataProperties.swift */,
+				81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */,
 				81C6526526A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld */,
 				81C6526826A1C3AF00F0EA35 /* StorageProvider.swift */,
-				81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -99,9 +99,9 @@
 		81C6526B26A1C3B800F0EA35 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				81C6525926A1C20B00F0EA35 /* MovieListView.swift */,
 				81C6527226A1E99F00F0EA35 /* MovieDetailView.swift */,
 				81C6527426A1EFEC00F0EA35 /* MovieEditView.swift */,
+				81C6525926A1C20B00F0EA35 /* MovieListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
