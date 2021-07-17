@@ -109,6 +109,13 @@ extension StorageProvider {
 // Delete a movie
 extension StorageProvider {
     
+    func deleteMovies(at offsets: IndexSet) {
+        for offset in offsets {
+            let movieToDelete = movies[offset]
+            deleteMovie(movieToDelete)
+        }
+    }
+    
     func deleteMovie( _ movie: Movie) {
         
         persistentContainer.viewContext.delete(movie)
