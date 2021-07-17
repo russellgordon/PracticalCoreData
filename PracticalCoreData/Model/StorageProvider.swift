@@ -14,6 +14,9 @@ class StorageProvider: ObservableObject {
     // For initializing the Core Data stack and loading the Core Data model file
     let persistentContainer: NSPersistentContainer
     
+    // For showing the list of movies
+    @Published private(set) var movies: [Movie] = []
+    
     init() {
         
         // Access the model file
@@ -25,6 +28,12 @@ class StorageProvider: ObservableObject {
                 
                 // For now, any failure to load the model is a programming error, and not recoverable
                 fatalError("Core Data store failed to load with error: \(error)")
+            } else {
+                
+                print("Successfully loaded persistent stores.")
+                
+                // Get all the movies
+                self.movies = self.getAllMovies()
             }
             
         }
@@ -49,6 +58,9 @@ extension StorageProvider {
             try persistentContainer.viewContext.save()
             
             print("Movie saved successfully")
+            
+            // Refresh the list of movies
+            movies = getAllMovies()
             
         } catch {
             
@@ -77,6 +89,9 @@ extension StorageProvider {
             
             print("Movie deleted.")
             
+            // Refresh the list of movies
+            movies = getAllMovies()
+            
         } catch {
             
             persistentContainer.viewContext.rollback()
@@ -94,13 +109,41 @@ extension StorageProvider {
     func updateMovies() {
         
         do {
+            // Tell SwiftUI that the list of movies is being modified
+            objectWillChange.send()
             try persistentContainer.viewContext.save()
             print("Movie updated.")
+            
         } catch {
             persistentContainer.viewContext.rollback()
             print("Failed to save context: \(error)")
         }
         
+    }
+    
+}
+
+// Get all the movies
+extension StorageProvider {
+    
+    private func getAllMovies() -> [Movie] {
+        
+        // Must specify the type with annotation, otherwise Xcode won't know what overload of fetchRequest() to use (we want to use the one for the Movie entity)
+        // The generic argument <Movie> allows Swift to know what kind of managed object a fetch request returns, which will make it easier to return the list of movies as an array
+        let fetchRequest: NSFetchRequest<Movie> = Movie.fetchRequest()
+        
+        do {
+            
+            return try persistentContainer.viewContext.fetch(fetchRequest)
+            
+        } catch {
+            
+            print("Failed to fetch movies \(error)")
+            
+        }
+        
+        // If an error occured, return nothing
+        return []
     }
     
 }

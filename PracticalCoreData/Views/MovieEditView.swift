@@ -47,6 +47,7 @@ struct MovieEditView: View {
                 }
             }
         }
+
     }
     
     func updateMovie() {

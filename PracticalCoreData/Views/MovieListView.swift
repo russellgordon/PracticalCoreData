@@ -13,14 +13,6 @@ struct MovieListView: View {
     // Access StorageProvider instance
     @EnvironmentObject private var storageProvider: StorageProvider
     
-    // The request to retrieve movies
-    var moviesFetchRequest: FetchRequest<Movie> = Movie.allMovies
-
-    // The result (convenience computed property)
-    var movies: FetchedResults<Movie> {
-        return moviesFetchRequest.wrappedValue
-    }
-        
     // Whether to show add movie interface
     @State private var showAddMovie = false
     
@@ -71,7 +63,7 @@ struct MovieListView: View {
             // List to show the movies added
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
-                ForEach(movies) { movie in
+                ForEach(storageProvider.movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)
                                     .environmentObject(storageProvider)) {
                         Text(movie.name)
@@ -115,7 +107,6 @@ struct MovieListView: View {
             }
             
         }
-        
     }
     
     func saveMovie() {
