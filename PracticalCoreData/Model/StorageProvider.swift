@@ -11,16 +11,46 @@ import Foundation
 // Must conform to ObservableObject to be passed through the environment
 class StorageProvider: ObservableObject {
     
+    // For showing the list of movies
+    @Published private(set) var movies: [Movie] = []
+
     // For initializing the Core Data stack and loading the Core Data model file
     let persistentContainer: NSPersistentContainer
     
-    // For showing the list of movies
-    @Published private(set) var movies: [Movie] = []
+    // For use with Xcode Previews, provides some data to work with for examples
+    static var preview: StorageProvider = {
+        
+        // Create an instance of the provider that runs in memory only
+        let storageProvider = StorageProvider(inMemory: true)
+        
+        // Add a few test movies
+        let titles = ["The Godfather", "The Shawshank Redemption", "Schindler's List", "Raging Bull", "Casablanca", "Citizen Kane",]
+        for title in titles {
+            storageProvider.saveMovie(named: title)
+        }
+        
+        // Now save these movies (remember though, these go to the in-memory-only Core Data store)
+        do {
+            try storageProvider.persistentContainer.viewContext.save()
+        } catch {
+            // Something went wrong 😭
+            print("Failed to save test movies: \(error)")
+
+        }
+
+        return storageProvider
+    }()
     
-    init() {
+    
+    init(inMemory: Bool = false) {
         
         // Access the model file
         persistentContainer = NSPersistentContainer(name: "PracticalCoreData")
+        
+        // Don't save information for future use if running in memory...
+        if inMemory {
+            persistentContainer.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
         
         // Attempt to load persistent stores (the underlying storage of data)
         persistentContainer.loadPersistentStores { description, error in

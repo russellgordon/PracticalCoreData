@@ -62,8 +62,14 @@ struct MovieEditView: View {
     
 }
 
-//struct MovieEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MovieEditView(dismissView: .constant(false))
-//    }
-//}
+struct MovieEditView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NavigationView {
+            MovieEditView(dismissView: .constant(false),
+                          movie: Movie.example)
+                .environmentObject(StorageProvider.preview)
+        }
+        
+    }
+}

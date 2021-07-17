@@ -41,8 +41,13 @@ struct MovieDetailView: View {
     
 }
 
-//struct MovieDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MovieDetailView()
-//    }
-//}
+struct MovieDetailView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NavigationView {
+            MovieDetailView(movie: Movie.example)
+                .environmentObject(StorageProvider.preview)
+        }
+    }
+    
+}
