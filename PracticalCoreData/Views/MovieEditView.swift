@@ -68,8 +68,8 @@ struct MovieEditView_Previews: PreviewProvider {
         NavigationView {
             MovieEditView(dismissView: .constant(false),
                           movie: Movie.example)
-                .environmentObject(StorageProvider.preview)
         }
-        
+        .environmentObject(StorageProvider.preview)
+
     }
 }

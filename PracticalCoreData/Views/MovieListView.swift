@@ -65,8 +65,7 @@ struct MovieListView: View {
             List {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
                 ForEach(storageProvider.movies) { movie in
-                    NavigationLink(destination: MovieDetailView(movie: movie)
-                                    .environmentObject(storageProvider)) {
+                    NavigationLink(destination: MovieDetailView(movie: movie)) {
                         Text(movie.name)
                     }
                     .swipeActions(allowsFullSwipe: true) {
@@ -131,9 +130,9 @@ struct MovieListView_Previews: PreviewProvider {
         
         NavigationView {
             MovieListView()
-                .environmentObject(StorageProvider.preview)
         }
-        
+        .environmentObject(StorageProvider.preview)
+
     }
     
 }

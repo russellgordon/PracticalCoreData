@@ -9,9 +9,6 @@ import SwiftUI
 
 struct MovieDetailView: View {
     
-    // Access StorageProvider instance
-    @EnvironmentObject private var storageProvider: StorageProvider
-    
     // The movie whose details we are viewing
     @ObservedObject var movie: Movie
     
@@ -24,7 +21,6 @@ struct MovieDetailView: View {
             .sheet(isPresented: $showEditSheet) {
                 NavigationView {
                     MovieEditView(dismissView: $showEditSheet, movie: movie)
-                        .environmentObject(storageProvider)
                 }
             }
             .toolbar {
@@ -46,8 +42,8 @@ struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MovieDetailView(movie: Movie.example)
-                .environmentObject(StorageProvider.preview)
         }
+        .environmentObject(StorageProvider.preview)
     }
     
 }

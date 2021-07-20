@@ -17,9 +17,9 @@ struct PracticalCoreDataApp: App {
         WindowGroup {
             NavigationView {
                 MovieListView()
-                    // Insert storage provider into the environment
-                    .environmentObject(storageProvider)
             }
+            // Insert storage provider into the environment
+            .environmentObject(storageProvider)
         }
     }
 }
