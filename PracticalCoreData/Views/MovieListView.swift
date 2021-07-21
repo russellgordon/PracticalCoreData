@@ -13,12 +13,34 @@ struct MovieListView: View {
     // Access StorageProvider instance
     @EnvironmentObject private var storageProvider: StorageProvider
     
+    // Access DateFormatter
+    @EnvironmentObject private var customDateFormatter: CustomDateFormatter
+
     // Whether to show add movie interface
     @State private var showAddMovie = false
     
-    // Field to enter movie name into
+    enum Field {
+        case name
+        case duration
+        case releaseDate
+        case watched
+    }
+    
+    // Range for release date
+    var releaseDateOpenRange: PartialRangeFrom<Date> {
+        let start = "01/01/1850"
+        let startDate = customDateFormatter.date(from: start)!
+        return startDate...
+    }
+    
+    // Fields to enter movie name into
     @State private var movieName = ""
-    @FocusState private var isFocused: Bool
+    @State private var movieDuration = 120
+    @State private var movieReleaseDate = Date()
+    @State private var movieWatched = false
+    
+    // What field has the focus
+    @FocusState private var focusedField: Field?
     
     var body: some View {
         
@@ -26,26 +48,35 @@ struct MovieListView: View {
             
             // Empty view seems to be necessary to get SwiftUI to draw the surrounding VStack
             Text("")
-
+            
             // Interface for adding a movie
             if showAddMovie {
                 
                 VStack {
+                    
+                    TextField("Enter movie name", text: $movieName)
+                        .introspectTextField { textField in
+                            
+                            // Set focus to the text field
+                            textField.becomeFirstResponder()
+                            
+                        }
+                        .focused($focusedField, equals: .name)
+                        .submitLabel(.next)
+                        // This modifier is invoked when the user presses Return
+                        .onSubmit {
+                            saveMovie()
+                        }
+                    
+                    Stepper(value: $movieDuration, label: { Text("Run length in minutes: \(movieDuration)")})
+                    
+                    DatePicker("Release date: ", selection: $movieReleaseDate, in: releaseDateOpenRange, displayedComponents: .date)
+                    
+                    Toggle("Watched?", isOn: $movieWatched)
+                    
                     HStack {
                         
-                        TextField("Enter movie name", text: $movieName)
-                            .introspectTextField { textField in
-                                
-                                // Set focus to the text field
-                                textField.becomeFirstResponder()
-                                                                
-                            }
-                            .focused($isFocused)
-                            // This modifier is invoked when the user presses Return
-                            .onSubmit {
-                                saveMovie()
-                            }
-
+                        Spacer()
                         
                         Button(action: {
                             saveMovie()
@@ -53,8 +84,9 @@ struct MovieListView: View {
                             Text("Add")
                         }
                         .keyboardShortcut(.defaultAction)
-
+                        
                     }
+                    .padding(.top)
                     
                 }
                 .padding(.horizontal)
@@ -66,7 +98,7 @@ struct MovieListView: View {
                 // NOTE: Must use the ForEach with an identifiable collection (or id: \.self) to use .swipeActions
                 ForEach(storageProvider.movies) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)) {
-                        Text(movie.name)
+                        MovieListItemView(movie: movie)
                     }
                     .swipeActions(allowsFullSwipe: true) {
                         
@@ -74,24 +106,24 @@ struct MovieListView: View {
                         Button(role: .destructive, action: {
                             
                             print("About to delete movie...")
-
+                            
                             withAnimation {
                                 // Attempt to delete the movie
                                 storageProvider.deleteMovie(movie)
                             }
-
+                            
                         }) {
                             Label("Delete", systemImage: "trash.fill")
                         }
-                                                        
+                        
                     }
-
+                    
                 }
             }
             // This modifier seems to be necessary to force SwiftUI to add a gap between the header and the list
             // The background won't actually be red, but a clear background doesn't work
             .background(Color.red)
-
+            
             
         }
         .navigationTitle("Core Data")
@@ -99,10 +131,10 @@ struct MovieListView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button(showAddMovie ? "Done" : "New") {
                     showAddMovie.toggle()
-
+                    
                     // NOTE: This doesn't seem to work to set the focus to the TextField 🤨
                     //       Really wish it would...
-                    isFocused = true
+                    focusedField = .name
                 }
             }
             
@@ -114,13 +146,19 @@ struct MovieListView: View {
         print("About to save movie...")
         
         // Save the movie
-        storageProvider.saveMovie(named: movieName)
-        
+        storageProvider.saveMovie(named: movieName,
+                                  duration: movieDuration,
+                                  releasedOn: movieReleaseDate,
+                                  watched: movieWatched)
+
         // Clear input field
         movieName = ""
+        movieDuration = 120
+        movieReleaseDate = Date()
+        movieWatched = false
         
         // Set focus back to the input field
-        isFocused = true
+        focusedField = .name
     }
 }
 
@@ -128,10 +166,13 @@ struct MovieListView_Previews: PreviewProvider {
     
     static var previews: some View {
         
+        let customDateFormatter = CustomDateFormatter()
+        
         NavigationView {
             MovieListView()
         }
         .environmentObject(StorageProvider.preview)
+        .environmentObject(customDateFormatter)
 
     }
     

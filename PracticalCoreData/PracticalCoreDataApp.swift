@@ -13,6 +13,10 @@ struct PracticalCoreDataApp: App {
     // Create an instance of our storage provider
     @StateObject private var storageProvider = StorageProvider()
     
+    // DateFormatters to share across app
+    @StateObject private var customDateFormatter = CustomDateFormatter()
+    @StateObject private var verboseDateFormatter = VerboseDateFormatter()
+
     var body: some Scene {
         WindowGroup {
             NavigationView {
@@ -20,6 +24,10 @@ struct PracticalCoreDataApp: App {
             }
             // Insert storage provider into the environment
             .environmentObject(storageProvider)
+            // Insert date formatters into the environment for later use
+            .environmentObject(customDateFormatter)
+            .environmentObject(verboseDateFormatter)
         }
     }
+    
 }

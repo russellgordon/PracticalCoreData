@@ -13,7 +13,7 @@ class StorageProvider: ObservableObject {
     
     // For showing the list of movies
     @Published private(set) var movies: [Movie] = []
-
+    
     // For initializing the Core Data stack and loading the Core Data model file
     let persistentContainer: NSPersistentContainer
     
@@ -24,9 +24,40 @@ class StorageProvider: ObservableObject {
         let storageProvider = StorageProvider(inMemory: true)
         
         // Add a few test movies
-        let titles = ["The Godfather", "The Shawshank Redemption", "Schindler's List", "Raging Bull", "Casablanca", "Citizen Kane",]
-        for title in titles {
-            storageProvider.saveMovie(named: title)
+        let movies = [
+            ["name": "The Godfather",
+             "duration": 177,
+             "releaseDate": "14/03/1972",
+             "watched": false],
+            ["name": "The Shawshank Redemption",
+             "duration": 142,
+             "releaseDate": "10/09/1994",
+             "watched": true],
+            ["name": "Schindler's List",
+             "duration": 195,
+             "releaseDate": "30/11/1993",
+             "watched": true],
+            ["name": "Raging Bull",
+             "duration": 129,
+             "releaseDate": "14/11/1980",
+             "watched": false],
+            ["name": "Casablanca",
+             "duration": 102,
+             "releaseDate": "26/11/1942",
+             "watched": true],
+            ["name": "Citizen Kane",
+             "duration": 119,
+             "releaseDate": "01/05/1941",
+             "watched": false],
+        ]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        for movie in movies {
+            let releaseDate = movie["releaseDate"] as! String
+            storageProvider.saveMovie(named: movie["name"] as! String,
+                                      duration: movie["duration"] as! Int,
+                                      releasedOn: formatter.date(from: releaseDate)!,
+                                      watched: movie["watched"] as! Bool)
         }
         
         // Now save these movies (remember though, these go to the in-memory-only Core Data store)
@@ -35,9 +66,9 @@ class StorageProvider: ObservableObject {
         } catch {
             // Something went wrong 😭
             print("Failed to save test movies: \(error)")
-
+            
         }
-
+        
         return storageProvider
     }()
     
@@ -77,13 +108,19 @@ class StorageProvider: ObservableObject {
 // Save a movie
 extension StorageProvider {
     
-    func saveMovie(named name: String) {
+    func saveMovie(named name: String,
+                   duration: Int,
+                   releasedOn releaseDate: Date,
+                   watched: Bool) {
         
         // New Movie instance is tied to the managed object context
         let movie = Movie(context: persistentContainer.viewContext)
         
         // Set the name for the new movie
         movie.name = name
+        movie.duration = duration
+        movie.releaseDate = releaseDate
+        movie.watched = watched
         
         do {
             
@@ -106,7 +143,7 @@ extension StorageProvider {
         }
         
     }
-
+    
 }
 
 // Delete a movie
