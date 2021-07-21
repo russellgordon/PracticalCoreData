@@ -44,8 +44,11 @@ class StorageProvider: ObservableObject {
     
     init(inMemory: Bool = false) {
         
+        // Set value transformer for the movie posetr image
+        ValueTransformer.setValueTransformer(UIImageTransformer(), forName: NSValueTransformerName(rawValue: "UIImageTransformer"))
+        
         // Access the model file
-        persistentContainer = NSPersistentContainer(name: "PracticalCoreData")
+        persistentContainer = NSPersistentContainer(name: "PCDChapter3")
         
         // Don't save information for future use if running in memory...
         if inMemory {

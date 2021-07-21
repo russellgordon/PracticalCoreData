@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19178.1" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Movie" representedClassName="Movie" syncable="YES" codeGenerationType="class">
+    <entity name="Actor" representedClassName="Actor" syncable="YES">
+        <attribute name="rawName" attributeType="String"/>
+        <relationship name="movies" toMany="YES" deletionRule="Deny" destinationEntity="Movie" inverseName="cast" inverseEntity="Movie"/>
+        <relationship name="roles" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
+    </entity>
+    <entity name="Character" representedClassName="Character" syncable="YES">
+        <attribute name="rawName" attributeType="String"/>
+        <relationship name="actor" maxCount="1" deletionRule="Nullify" destinationEntity="Actor" inverseName="roles" inverseEntity="Actor"/>
+        <relationship name="movie" maxCount="1" deletionRule="Deny" destinationEntity="Movie" inverseName="characters" inverseEntity="Movie"/>
+    </entity>
+    <entity name="Movie" representedClassName="Movie" syncable="YES">
         <attribute name="rawDuration" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="rawPosterImage" optional="YES" attributeType="Transformable" valueTransformerName="UIImageTransformer"/>
         <attribute name="rawRating" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="rawReleaseDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="rawTitle" attributeType="String"/>
         <attribute name="rawWatched" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="cast" toMany="YES" deletionRule="Nullify" destinationEntity="Actor" inverseName="movies" inverseEntity="Actor"/>
+        <relationship name="characters" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="movie" inverseEntity="Character"/>
     </entity>
     <elements>
-        <element name="Movie" positionX="2282.9140625" positionY="-155.89453125" width="128" height="118"/>
+        <element name="Movie" positionX="2011.796875" positionY="-427.28515625" width="128" height="163"/>
+        <element name="Actor" positionX="2380.51171875" positionY="-352.25390625" width="128" height="88"/>
+        <element name="Character" positionX="2362.9609375" positionY="-140.42578125" width="128" height="88"/>
     </elements>
 </model>
