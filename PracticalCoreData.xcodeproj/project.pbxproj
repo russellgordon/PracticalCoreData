@@ -19,6 +19,7 @@
 		81C6528226A22D9D00F0EA35 /* Movie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6528026A22D9D00F0EA35 /* Movie+CoreDataClass.swift */; };
 		81C6528326A22D9D00F0EA35 /* Movie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6528126A22D9D00F0EA35 /* Movie+CoreDataProperties.swift */; };
 		81D2A4A826A30F91004FB9CE /* Movie+PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */; };
+		81ECB8C226A86C2B0017393C /* PCDChapter3.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 81ECB8C026A86C2B0017393C /* PCDChapter3.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		81C6528026A22D9D00F0EA35 /* Movie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataClass.swift"; sourceTree = "<group>"; };
 		81C6528126A22D9D00F0EA35 /* Movie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+PreviewProvider.swift"; sourceTree = "<group>"; };
+		81ECB8C126A86C2B0017393C /* PCDChapter3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PCDChapter3.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				81C6528126A22D9D00F0EA35 /* Movie+CoreDataProperties.swift */,
 				81D2A4A726A30F91004FB9CE /* Movie+PreviewProvider.swift */,
 				81C6526526A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld */,
+				81ECB8C026A86C2B0017393C /* PCDChapter3.xcdatamodeld */,
 				81C6526826A1C3AF00F0EA35 /* StorageProvider.swift */,
 			);
 			path = Model;
@@ -189,6 +192,7 @@
 				81C6525A26A1C20B00F0EA35 /* MovieListView.swift in Sources */,
 				81C6527526A1EFEC00F0EA35 /* MovieEditView.swift in Sources */,
 				81C6525826A1C20B00F0EA35 /* PracticalCoreDataApp.swift in Sources */,
+				81ECB8C226A86C2B0017393C /* PCDChapter3.xcdatamodeld in Sources */,
 				81D2A4A826A30F91004FB9CE /* Movie+PreviewProvider.swift in Sources */,
 				81C6526726A1C2B400F0EA35 /* PracticalCoreData.xcdatamodeld in Sources */,
 			);
@@ -423,6 +427,16 @@
 			);
 			currentVersion = 81C6526626A1C2B400F0EA35 /* PracticalCoreData.xcdatamodel */;
 			path = PracticalCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		81ECB8C026A86C2B0017393C /* PCDChapter3.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				81ECB8C126A86C2B0017393C /* PCDChapter3.xcdatamodel */,
+			);
+			currentVersion = 81ECB8C126A86C2B0017393C /* PCDChapter3.xcdatamodel */;
+			path = PCDChapter3.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
